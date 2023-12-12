@@ -5,8 +5,7 @@ import lombok.*;
 import java.time.LocalDate;
 
 /**
- * Author: Mohamed Nicer
- * User:mohamednicer
+ * @author mohamednicer
  * Date:12/12/2023
  * Time:05:12
  */
