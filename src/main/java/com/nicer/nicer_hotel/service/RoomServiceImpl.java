@@ -1,5 +1,7 @@
 package com.nicer.nicer_hotel.service;
 
+import com.nicer.nicer_hotel.exception.ResourceNotFoundException;
+import com.nicer.nicer_hotel.exception.RoomImageRetrievalException;
 import com.nicer.nicer_hotel.model.Room;
 import com.nicer.nicer_hotel.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +40,25 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public List<String> getAllRoomTypes() {
         return roomRepository.findDistinctRoomTypes();
+    }
+
+    @Override
+    public List<Room> getAllRooms() {
+        return roomRepository.findAll();
+    }
+
+    @Override
+    public byte[] getRoomImageByRoomId(long roomId) {
+        Room room = roomRepository.findById(roomId).orElse(null);
+        if(room != null){
+            Blob roomImageBlob = room.getRoomImage();
+            try {
+                return roomImageBlob.getBytes(1, (int) roomImageBlob.length());
+            } catch (SQLException e) {
+                throw new RoomImageRetrievalException("Error Retrieving Image");
+            }
+        } else {
+            throw new ResourceNotFoundException("Sorry, Room Not Found!");
+        }
     }
 }
