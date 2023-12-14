@@ -10,7 +10,6 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import response.BookingResponse;
 import response.RoomResponse;
 
 import java.io.IOException;
@@ -25,7 +24,7 @@ import java.util.List;
  * Date:12/12/2023
  * Time:05:12
  */
-@RequiredArgsConstructor
+
 @RequestMapping("/rooms")
 @RestController
 @CrossOrigin(origins = "*")
@@ -33,6 +32,11 @@ public class RoomController {
 
     private final IRoomService roomService;
     private final IBookedRoomService bookedRoomService;
+
+    public RoomController(IRoomService roomService, IBookedRoomService bookedRoomService) {
+        this.roomService = roomService;
+        this.bookedRoomService = bookedRoomService;
+    }
 
     @PostMapping("/addRoom")
     public ResponseEntity<RoomResponse> addNewRoom(@RequestParam("roomImage")MultipartFile  roomImage, @RequestParam("roomType") String roomType, @RequestParam("roomPrice") BigDecimal roomPrice) throws SQLException, IOException {
@@ -62,12 +66,12 @@ public class RoomController {
 
     private RoomResponse getRoomResponse(Room room) {
         List<BookedRoom> bookedRooms = getAllBookingByRoomId(room.getId());
-        List<BookingResponse> bookingResponses = bookedRooms
+        /*List<BookingResponse> bookingResponses = bookedRooms
                 .stream()
                 .map(bookedRoom -> new BookingResponse(bookedRoom.getBookingId(),
                         bookedRoom.getCheckInDate(), bookedRoom.getCheckOutDate(),
                         bookedRoom.getBookingConfirmationCode()))
-                .toList();
+                .toList();*/
         byte[] roomImageBytes = null;
         Blob roomImageBlob = room.getRoomImage();
         if(roomImageBlob != null){
@@ -79,7 +83,7 @@ public class RoomController {
         }
         return new RoomResponse(room.getId(), room.getRoomType(),
                 room.getRoomPrice(), room.isBooked(),
-                roomImageBytes,bookingResponses );
+                roomImageBytes);
     }
 
     private List<BookedRoom> getAllBookingByRoomId(long roomId) {

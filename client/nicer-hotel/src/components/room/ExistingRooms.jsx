@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { getAllRooms } from '../utils/ApiFunctions'
+import { Col } from "react-bootstrap"
+import RoomFilter from "../common/RoomFilter"
+import RoomPaginator from "../common/RoomPaginator"
 
 const ExistingRooms = () => {
     const[rooms , setRooms] = useState([])

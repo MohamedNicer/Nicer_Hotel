@@ -1,6 +1,7 @@
 package com.nicer.nicer_hotel.service;
 
 import com.nicer.nicer_hotel.model.BookedRoom;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
