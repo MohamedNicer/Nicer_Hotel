@@ -21,4 +21,6 @@ public interface IRoomService {
     List<Room> getAllRooms();
 
     byte[] getRoomImageByRoomId(long roomId);
+
+    void deleteRoom(long roomId);
 }

@@ -64,6 +64,11 @@ public class RoomController {
         return ResponseEntity.ok(roomResponses);
     }
 
+    @DeleteMapping("/deleteRoom/{roomId}")
+    public ResponseEntity<Void> deleteRoom(@PathVariable long roomId) {
+        roomService.deleteRoom(roomId);
+        return ResponseEntity.ok().build(); //204 No Content
+    }
     private RoomResponse getRoomResponse(Room room) {
         List<BookedRoom> bookedRooms = getAllBookingByRoomId(room.getId());
         /*List<BookingResponse> bookingResponses = bookedRooms

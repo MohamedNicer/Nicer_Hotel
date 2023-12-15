@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author mohamednicer
@@ -59,6 +60,14 @@ public class RoomServiceImpl implements IRoomService {
             }
         } else {
             throw new ResourceNotFoundException("Sorry, Room Not Found!");
+        }
+    }
+
+    @Override
+    public void deleteRoom(long roomId) {
+        Optional<Room> room = roomRepository.findById(roomId);
+        if(room.isPresent()){
+            roomRepository.deleteById(roomId);
         }
     }
 }
