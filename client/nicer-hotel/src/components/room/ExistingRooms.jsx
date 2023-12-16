@@ -3,7 +3,6 @@ import { deleteRoom, getAllRooms } from '../utils/ApiFunctions'
 import { Col } from "react-bootstrap"
 import RoomFilter from "../common/RoomFilter"
 import RoomPaginator from "../common/RoomPaginator"
-import { FaEdit, FaEye, FaTrashAlt } from "react-icons/fa"
 import { Link } from "react-router-dom"
 
 const ExistingRooms = () => {
@@ -104,18 +103,16 @@ const ExistingRooms = () => {
                             <td>{room.roomPrice}</td>
                             <td className='gap-2'>
                                 <Link to={`/editRoom/${room.id}`}>
-                                    <span className='btn btn-info btn-sm'>
-                                        <FaEye />
+                                    <span style={{paddingRight: "10px"}} class="material-symbols-outlined">
+                                        visibility
                                     </span>
-                                    <span className='btn btn-warning btn-sm'>
-                                        <FaEdit />
+                                    <span style={{paddingRight: "10px"}} class="material-symbols-outlined">
+                                        edit
                                     </span>
                                 </Link>
-                                <button
-                                className='btn btn-danger btn-sm'
-                                onClick={()=>handleDelete(room.id)}>
-                                    <FaTrashAlt />
-                                </button>
+                                <span class="material-symbols-outlined" onClick={()=>handleDelete(room.id)}>
+                                    delete
+                                </span>
                             </td>
                         </tr>
                     ))}
