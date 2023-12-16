@@ -103,14 +103,14 @@ const ExistingRooms = () => {
                             <td>{room.roomPrice}</td>
                             <td className='gap-2'>
                                 <Link to={`/editRoom/${room.id}`}>
-                                    <span style={{paddingRight: "10px"}} class="material-symbols-outlined">
+                                    <span style={{paddingRight: "10px"}} className="material-symbols-outlined">
                                         visibility
                                     </span>
-                                    <span style={{paddingRight: "10px"}} class="material-symbols-outlined">
+                                    <span style={{paddingRight: "10px"}} className="material-symbols-outlined">
                                         edit
                                     </span>
                                 </Link>
-                                <span class="material-symbols-outlined" onClick={()=>handleDelete(room.id)}>
+                                <span className="material-symbols-outlined" onClick={()=>handleDelete(room.id)}>
                                     delete
                                 </span>
                             </td>
