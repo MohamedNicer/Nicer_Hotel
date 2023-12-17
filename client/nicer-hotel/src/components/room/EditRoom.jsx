@@ -12,7 +12,7 @@ const EditRoom = () => {
 	const [successMessage, setSuccessMessage] = useState("")
 	const [errorMessage, setErrorMessage] = useState("")
 	const [imagePreview, setImagePreview] = useState("")
-  const {roomId} = useParams()
+  	const {roomId} = useParams()
 
   const handleImageChange = (e) => {
 		const selectedImage = e.target.files[0]
@@ -46,7 +46,7 @@ const EditRoom = () => {
 			if (response.status === 200) {
 				setSuccessMessage("Room Updated Successfully!")
 				const updatedRoomData = await getRoomById(roomId)
-        setRoom(updatedRoomData)
+        		setRoom(updatedRoomData)
 				setImagePreview(updatedRoomData.roomImage)
 				setErrorMessage("")
 			} else {
@@ -62,10 +62,10 @@ const EditRoom = () => {
 	}
   return (
     <>
-			<section className="container mt-5 mb-5">
+			<div className="container mt-5 mb-5">
 				<div className="row justify-content-center">
 					<div className="col-md-8 col-lg-6">
-						<h2 className="mt-5 mb-2">Edit Room</h2>
+					<h3 className="mt-5 mb-2">Edit Room</h3>
 						{successMessage && (
 							<div className="alert alert-success" role='alert'> {successMessage}</div>
 						)}
@@ -78,7 +78,7 @@ const EditRoom = () => {
 									Room Type
 								</label>
 								<input type="text" name="roomType" id="roomType" className='form-control' 
-                value={room.roomType} onChange={handleInputChange}/>
+                				value={room.roomType} onChange={handleInputChange}/>
 							</div>
 							<div className="mb-3">
 								<label htmlFor="roomPrice" className="form-label hotel-color">
@@ -125,7 +125,7 @@ const EditRoom = () => {
                 </form>
             </div>
         </div>
-    </section>
+    </div>
     </>
   )
 }
