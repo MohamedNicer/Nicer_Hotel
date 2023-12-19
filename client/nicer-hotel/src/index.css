@@ -94,11 +94,11 @@ body {
   position: relative;
   height: 150px;
   background-size: cover;
-  background-image: url("./assets/images/header.jpg");
+  background-image: url("./assets/images/header1.webp");
   background-position: center center;
 }
 .header-title {
-  color: #fff;
+  color: darkgoldenrod;
   font-size: 4rem;
   align-content: center;
 }

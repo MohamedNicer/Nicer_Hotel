@@ -9,6 +9,7 @@ import Home from './components/home/Home'
 import NavBar from './components/layout/NavBar'
 import Footer from './components/layout/Footer'
 import RoomListing from './components/room/RoomListing'
+import Admin from './components/admin/Admin'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Route path='/existingRooms' element={<ExistingRooms />}/>
           <Route path='/addRoom' element={<AddRoom />}/>
           <Route path='/browseAllRooms' element={<RoomListing />}/>
+          <Route path='/Admin' element={<Admin />}/>
         </Routes>
       </Router>
       <Footer/>

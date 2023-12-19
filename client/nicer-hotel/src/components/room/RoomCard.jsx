@@ -17,13 +17,13 @@ const RoomCard = ({room}) => {
                     {room.roomType}
                 </Card.Title>
                 <Card.Title className='room-price'>
-                    {room.roomPrice}
+                    ${room.roomPrice} per night
                 </Card.Title>
                 <Card.Text>Some Room Information For The Guests To Read Through</Card.Text>
             </div>
             <div className='flex-shrink-0 mt-3'>
-                <Link to={`bookings/${room.id}`} className='btn btn-hotel btn-sm'>
-                    Book Now
+                <Link to={`/bookRoom/${room.id}`} className='btn btn-hotel btn-sm'>
+                    View or Book Now
                 </Link>
 
             </div>
