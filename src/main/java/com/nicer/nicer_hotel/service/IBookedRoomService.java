@@ -12,4 +12,12 @@ import java.util.List;
  */
 public interface IBookedRoomService {
     List<BookedRoom> getAllBookingByRoomId(long roomId);
+
+    void cancelBooking(long bookingId);
+
+    String saveBooking(long roomId, BookedRoom bookingRequest);
+
+    BookedRoom getBookingByConfirmationCode(String confirmationCode);
+
+    List<BookedRoom> getAllBookings();
 }
