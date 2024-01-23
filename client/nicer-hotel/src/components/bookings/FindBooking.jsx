@@ -14,8 +14,8 @@ const FindBooking = () => {
         checkOutDate: "",
         guestFullName: "",
         guestEmail: "",
-        numberOfAdults: "",
-        numberOfChildren: "",
+        numOfAdults: "",
+        numOfChildren: "",
         totalNumOfGuests: ""
     })
 
@@ -101,12 +101,12 @@ const FindBooking = () => {
                 <p>Check-Out Date: {bookingInfo.checkOutDate}</p>
                 <p>Guest Name: {bookingInfo.guestFullName}</p>
                 <p>Guest Email: {bookingInfo.guestEmail}</p>
-                <p>Adults: {bookingInfo.numberOfAdults}</p>
-                <p>Children: {bookingInfo.numberOfChildren}</p>
+                <p>Adults: {bookingInfo.numOfAdults}</p>
+                <p>Children: {bookingInfo.numOfChildren}</p>
                 <p>Total Guests: {bookingInfo.totalNumOfGuests}</p>
 
                 {!isDeleted && (
-                    <button className='btn btn-danger' onClick={handleBookingCancellation(bookingInfo.id)}>Cancel Booking</button>
+                    <button className='btn btn-danger' onClick={()=>handleBookingCancellation(bookingInfo.id)}>Cancel Booking</button>
                 )}
             </div>
         ): (

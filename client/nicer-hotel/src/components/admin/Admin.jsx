@@ -6,7 +6,7 @@ const Admin = () => {
     <section className='container mt-5'>
         <h2>Welcome to Admin Panel</h2>
         <hr />
-        <Link to={"/existingRooms"}>Manage Rooms</Link>
+        <Link to={"/existingRooms"}>Manage Rooms</Link><br/>
         <Link to={"/existingBookings"}>Manage Bookings</Link>
 
     </section>
