@@ -10,14 +10,14 @@ import java.time.LocalDate;
  * Time:05:12
  */
 @Entity
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookedRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long bookingId;
+    private Long bookingId;
 
     @Column(name = "check_in")
     private LocalDate checkInDate;

@@ -24,8 +24,7 @@ public class BookingResponse {
     private int numOfChildren;
     private int totalNumOfGuests;
     private String bookingConfirmationCode;
-    private RoomResponse roomResponse;
-
+    private RoomResponse room;
     public BookingResponse(long id, LocalDate checkInDate, LocalDate checkOutDate, String bookingConfirmationCode) {
         this.id = id;
         this.checkInDate = checkInDate;

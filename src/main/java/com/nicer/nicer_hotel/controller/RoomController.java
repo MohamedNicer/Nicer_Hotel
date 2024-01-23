@@ -10,6 +10,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import response.BookingResponse;
 import response.RoomResponse;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -97,28 +98,28 @@ public class RoomController {
 
 
     private RoomResponse getRoomResponse(Room room) {
-        List<BookedRoom> bookedRooms = getAllBookingByRoomId(room.getId());
-        /*List<BookingResponse> bookingResponses = bookedRooms
+        List<BookedRoom> bookings = getAllBookingsByRoomId(room.getId());
+        List<BookingResponse> bookingInfo = bookings
                 .stream()
-                .map(bookedRoom -> new BookingResponse(bookedRoom.getBookingId(),
-                        bookedRoom.getCheckInDate(), bookedRoom.getCheckOutDate(),
-                        bookedRoom.getBookingConfirmationCode()))
-                .toList();*/
-        byte[] roomImageBytes = null;
-        Blob roomImageBlob = room.getRoomImage();
-        if(roomImageBlob != null){
+                .map(booking -> new BookingResponse(booking.getBookingId(),
+                        booking.getCheckInDate(),
+                        booking.getCheckOutDate(), booking.getBookingConfirmationCode())).toList();
+        byte[] photoBytes = null;
+        Blob photoBlob = room.getRoomImage();
+        if (photoBlob != null) {
             try {
-                roomImageBytes = roomImageBlob.getBytes(1,(int) roomImageBlob.length());
+                photoBytes = photoBlob.getBytes(1, (int) photoBlob.length());
             } catch (SQLException e) {
-                throw new RoomImageRetrievalException("Error Retrieving Image");
+                throw new RoomImageRetrievalException("Error retrieving photo");
             }
         }
-        return new RoomResponse(room.getId(), room.getRoomType(),
-                room.getRoomPrice(), room.isBooked(),
-                roomImageBytes);
+        return new RoomResponse(room.getId(),
+                room.getRoomType(), room.getRoomPrice(),
+                room.isBooked(), photoBytes, bookingInfo);
     }
 
-    private List<BookedRoom> getAllBookingByRoomId(long roomId) {
+    private List<BookedRoom> getAllBookingsByRoomId(Long roomId) {
         return bookedRoomService.getAllBookingByRoomId(roomId);
+
     }
 }
