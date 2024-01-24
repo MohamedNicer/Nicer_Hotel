@@ -1,6 +1,7 @@
 package com.nicer.nicer_hotel.service;
 
 import com.nicer.nicer_hotel.exception.InvalidBookingRequestException;
+import com.nicer.nicer_hotel.exception.ResourceNotFoundException;
 import com.nicer.nicer_hotel.model.BookedRoom;
 import com.nicer.nicer_hotel.model.Room;
 import com.nicer.nicer_hotel.repository.BookedRoomRepository;
@@ -54,7 +55,8 @@ public class BookedRoomService implements IBookedRoomService{
 
     @Override
     public BookedRoom getBookingByConfirmationCode(String confirmationCode) {
-        return bookedRoomRepository.findByBookingConfirmationCode(confirmationCode);
+        return bookedRoomRepository.findByBookingConfirmationCode(confirmationCode)
+                .orElseThrow(()->new ResourceNotFoundException("No booking found with booking code: " + confirmationCode));
     }
 
     private boolean roomIsAvailable(BookedRoom bookingRequest, List<BookedRoom> existingBookings) {
