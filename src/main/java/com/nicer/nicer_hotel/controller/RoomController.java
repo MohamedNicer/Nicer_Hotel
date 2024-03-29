@@ -7,6 +7,7 @@ import com.nicer.nicer_hotel.model.Room;
 import com.nicer.nicer_hotel.service.IBookedRoomService;
 import com.nicer.nicer_hotel.service.IRoomService;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -96,6 +98,28 @@ public class RoomController {
         }).orElseThrow(() -> new ResourceNotFoundException("Room Not Found"));
     }
 
+    @GetMapping("availableRooms")
+    public ResponseEntity<List<RoomResponse>> getAvailableRooms(
+            @RequestParam("checkInDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkInDate,
+            @RequestParam("checkOutDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkOutDate,
+            @RequestParam("roomType") String roomType){
+        List<Room> availableRooms = roomService.getAvailableRooms(checkInDate,checkOutDate,roomType);
+        List<RoomResponse> roomResponses = new ArrayList<>();
+        for (Room room: availableRooms){
+            byte[] roomImageBytes = roomService.getRoomImageByRoomId(room.getId());
+            if (roomImageBytes != null && roomImageBytes.length > 0){
+                String roomImageBase64 = Base64.encodeBase64String(roomImageBytes);
+                RoomResponse roomResponse = getRoomResponse(room);
+                roomResponse.setRoomImage(roomImageBase64);
+                roomResponses.add(roomResponse);
+            }
+        }
+        if (roomResponses.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }else {
+            return ResponseEntity.ok(roomResponses);
+        }
+    }
 
     private RoomResponse getRoomResponse(Room room) {
         List<BookedRoom> bookings = getAllBookingsByRoomId(room.getId());
